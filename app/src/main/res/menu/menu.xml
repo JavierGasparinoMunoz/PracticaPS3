@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_evaluaciones"
+            android:icon="@android:drawable/ic_menu_agenda"
+            android:title="Evaluaciones" />
+        <item
+            android:id="@+id/nav_calendar"
+            android:icon="@android:drawable/ic_menu_my_calendar"
+            android:title="Calendario" />
+        <item
+            android:id="@+id/nav_chat"
+            android:icon="@android:drawable/ic_menu_send"
+            android:title="Foro" />
+        <item
+            android:id="@+id/nav_cerrarSesion"
+            android:icon="@android:drawable/ic_menu_close_clear_cancel"
+            android:title="Cerrar Sesion" />
+    </group>
+
+</menu>
