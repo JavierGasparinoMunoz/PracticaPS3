@@ -28,6 +28,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText nombreLog, passLog;
     private Button btnLog,registro;
 
+    //Inicializo una clase propia de firebase para la autetificacion mediante ella
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void instancias() {
+        mAuth = FirebaseAuth.getInstance();
         nombreLog = findViewById(R.id.edit_usuario_log);
         passLog = findViewById(R.id.edit_pass_log);
         btnLog = findViewById(R.id.button_log);
@@ -63,11 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
     }
 
-    private void recuperar(){
-        passLog.getText().toString();
-        Toast.makeText(getApplicationContext(), "La ", Toast.LENGTH_SHORT).show();
-    }
-
+    /*
     public void onClick(View view) {
         switch (view.getId()){
             // Si se pulsa el boton de login se mete dentro de este caso y mediante la varaiable mAuth
@@ -81,6 +81,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.button_registro:
                 Intent reg = new Intent(getApplicationContext(),RegistroActivity.class);
                 startActivity(reg);
+                break;
+        }
+    }
+    */
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            // Si se pulsa el boton de login se mete dentro de este caso y mediante la varaiable mAuth
+            // de la clase de autetificacion de firebase se intenta logear al usuario mediante el email y la contraseña introducidos
+            case R.id.button_log:
+
+                mAuth.signInWithEmailAndPassword(nombreLog.getText().toString(), passLog.getText().toString())
+                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful() && !nombreLog.getText().toString().isEmpty()
+                                        && !passLog.getText().toString().isEmpty()) {
+                                    FirebaseUser currentUser = mAuth.getCurrentUser();
+                                    String uid = currentUser.getUid();
+                                    Log.d("login", "signInWithEmail:success");
+
+                                    startActivity(new Intent(MainActivity.this, MenuActivity.class));
+                                    finish();
+
+
+                                    //Si se ha introducido mal la contraseña o el email o estan vacios o
+                                    // no existe ese usaurio salta un aviso de que la autetificacion ha fallado
+                                } else {
+                                    Log.w("login", "signInWithEmail:failure", task.getException());
+                                    Toast.makeText(getApplicationContext(), "Authentication failed.",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                break;
+
+            //Si se pulsa el boton de crear cuenta se pasa a una actividad donde el usuario se registrara
+            case R.id.button_registro:
+                Intent i = new Intent(getApplicationContext(),RegistroActivity.class);
+                startActivity(i);
                 break;
         }
     }

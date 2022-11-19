@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegistroActivity"
+    >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/f"
+        android:scaleType="centerCrop"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:background="#D8ACA4A4"
+        android:gravity="center"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/myDate"
+            android:text="Calendario"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:layout_marginTop="55dp"
+            android:textSize="23sp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_marginTop="45dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:layout_gravity="center">
+
+            <CalendarView
+                android:background="@android:color/holo_orange_light"
+                android:id="@+id/calendarView"
+                android:layout_width="wrap_content"
+                android:padding="5dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:id="@+id/button_eventos"
+            android:background="@drawable/btn_fondo_color"
+            android:text="eventos"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            android:elevation="5dp"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>
+

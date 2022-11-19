@@ -7,6 +7,8 @@ import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.practicaps.fragments.CalendarFragment;
+import com.example.practicaps.utils.Usuarios;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -46,6 +48,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         // Instancio las variables
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("URJC App");
+        //databaseReference = FirebaseDatabase.getInstance().getReference();
         setSupportActionBar(toolbar);
 
 
@@ -63,6 +66,14 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         nombreEdit = headView.findViewById(R.id.id_nombre_apellido_perfil);
         emailEdit = headView.findViewById(R.id.email_Perfil);
 
+        // Llamo al metodo para cambiar el nombre del usuario y el email que estan en el navigation drawler
+        cambiarNombre();
+    }
+
+    //Metodo para cargar el fragment
+    private void cargarFragment(Fragment fragment) {
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.contenedor_fragments, fragment).commit();
     }
 
     @Override
@@ -76,9 +87,10 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     }
 
     // Metodo para cambiar el nombre y el email de la cabecera por los del usuario.
-    /*private void cambiarNombre() {
-        final String uid = getIntent().getExtras().getString("uid");
-        DatabaseReference referenciaTipo = FirebaseDatabase.getInstance().getReference().child("usuarios").child(uid);
+    private void cambiarNombre() {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        String userID = auth.getCurrentUser().getUid();
+        DatabaseReference referenciaTipo = FirebaseDatabase.getInstance("https://practicaps-d596b-default-rtdb.europe-west1.firebasedatabase.app/").getReference("usuarios").child(userID);
         referenciaTipo.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -95,8 +107,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });
-
-    }*/
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -121,7 +132,9 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.nav_cerrarSesion) {
+        if (id == R.id.nav_calendar){
+            cargarFragment(new CalendarFragment());
+        } else if (id == R.id.nav_cerrarSesion) {
             returnLogin();
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
