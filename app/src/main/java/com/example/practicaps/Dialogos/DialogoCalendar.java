@@ -111,7 +111,10 @@ public class DialogoCalendar extends DialogFragment {
 
     private void guardarDataBase(){
         DatabaseReference RootRef = database.getReference();
-        String calEventRef = "usuarios/" + mAuth.getCurrentUser().getUid() + "/calendario/" + date;
+        DatabaseReference usuarioMensajeRef = RootRef.child("usuarios").child(mAuth.
+                getCurrentUser().getUid()).child("calendario").child(date).push();
+        String mensajePushID = usuarioMensajeRef.getKey();
+        String calEventRef = "usuarios/" + mAuth.getCurrentUser().getUid() + "/calendario/" + date +  "/" + mensajePushID;
         Map eventoTxt = new HashMap();
         eventoTxt.put("hora", hora + ":" + mins);
         eventoTxt.put("evento", informacion.getInfo());
