@@ -73,7 +73,9 @@ public class DialogoCalendar extends DialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         date = getArguments().getString("date");
+        date = date.replace("/","-");
         System.out.println(date);
+
     }
 
     private void acciones() {
