@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +21,14 @@ import androidx.fragment.app.DialogFragment;
 import com.example.practicaps.R;
 import com.example.practicaps.utils.Informacion;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Calendar;
 
 public class DialogoCalendar extends DialogFragment {
@@ -35,6 +42,8 @@ public class DialogoCalendar extends DialogFragment {
     private OnDialogoPersoListener listener;
     String date;
     private int hora,mins;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseDatabase database = FirebaseDatabase.getInstance("https://practicaps-d596b-default-rtdb.europe-west1.firebasedatabase.app/");
 
     @Override
     public void onAttach(Context context) {
@@ -99,7 +108,25 @@ public class DialogoCalendar extends DialogFragment {
     }
 
     private void guardarDataBase(){
+        DatabaseReference RootRef = database.getReference();
+        String calEventRef = "usuarios/" + mAuth.getCurrentUser().getUid() + "/calendario/" + date;
+        Map eventoTxt = new HashMap();
+        eventoTxt.put("hora", hora + ":" + mins);
+        eventoTxt.put("evento", informacion.getInfo());
 
+        Map calendarAdder = new HashMap();
+        calendarAdder.put(calEventRef, eventoTxt);
+
+        RootRef.updateChildren(calendarAdder).addOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(@NonNull Task task) {
+                if (task.isSuccessful()) {
+                    System.out.println("Done");
+                } else {
+                    System.out.println("Error");
+                }
+            }
+        });
     }
 
     private void instancias() {
