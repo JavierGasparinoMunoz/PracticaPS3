@@ -1,22 +1,26 @@
 package com.example.practicaps.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CalendarView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.practicaps.Dialogos.DialogoCalendar;
+import com.example.practicaps.dialogos.DialogoCalendar;
+import com.example.practicaps.EventosActivity;
 import com.example.practicaps.R;
 import com.example.practicaps.utils.Informacion;
 
-public class CalendarFragment  extends Fragment {
+public class CalendarFragment  extends Fragment implements View.OnClickListener {
     // Se instancian las variables
     CalendarView calendarView;
+    Button buttonEventos;
 
     String  date;
 
@@ -39,7 +43,14 @@ public class CalendarFragment  extends Fragment {
 
         //Se instancian los valores gracias a la vista creada
         calendarView = view.findViewById(R.id.calendarView);
+        buttonEventos = view.findViewById(R.id.button_eventos);
+
+        acciones();
         return view;
+    }
+
+    private void acciones() {
+        buttonEventos.setOnClickListener(this);
     }
 
     // Metodo donde una vez se haya creado la vista se establece que la variable date sera el dia,
@@ -59,5 +70,15 @@ public class CalendarFragment  extends Fragment {
                 dialogoCalendario.show(getFragmentManager(), "perso");
             }
         });
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.button_eventos:
+                Intent i = new Intent(getContext(), EventosActivity.class);
+                startActivity(i);
+                break;
+        }
     }
 }

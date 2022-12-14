@@ -1,4 +1,4 @@
-package com.example.practicaps.Dialogos;
+package com.example.practicaps.dialogos;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

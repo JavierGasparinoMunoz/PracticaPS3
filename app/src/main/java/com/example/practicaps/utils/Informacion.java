@@ -43,4 +43,28 @@ public class Informacion implements Serializable {
                 ", min=" + min +
                 '}';
     }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public int getHora() {
+        return hora;
+    }
+
+    public void setHora(int hora) {
+        this.hora = hora;
+    }
+
+    public int getMin() {
+        return min;
+    }
+
+    public void setMin(int min) {
+        this.min = min;
+    }
 }

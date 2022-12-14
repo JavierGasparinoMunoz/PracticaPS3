@@ -27,5 +27,6 @@
         <activity android:name=".AdministradorActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".MenuActivity"/>
+        <activity android:name=".EventosActivity" />
     </application>
 </manifest>
