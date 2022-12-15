@@ -37,13 +37,18 @@ public class EventosActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
 
     private String nombreUsuarioLog;
+    private String date;
 
     public EventosActivity() {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        date = getIntent().getExtras().get("date").toString();
+        date = date.replace("/","-");
+        System.out.println("Funciona: " + date);
+
         instancias();
         acciones();
     }
