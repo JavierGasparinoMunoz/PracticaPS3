@@ -33,11 +33,12 @@ public class EventosActivity extends AppCompatActivity {
     private AdaptadorEventos adaptadorEventos;
     private LinearLayoutManager linearLayoutManager;
     private FirebaseDatabase database;
-    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private DatabaseReference databaseReference;
+    private DatabaseReference usuarioMensajeRef;
 
-    private String nombreUsuarioLog;
     private String date;
+    private String evento;
 
     public EventosActivity() {
     }
@@ -45,6 +46,7 @@ public class EventosActivity extends AppCompatActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_eventos);
         date = getIntent().getExtras().get("date").toString();
         date = date.replace("/","-");
         System.out.println("Funciona: " + date);
@@ -63,11 +65,11 @@ public class EventosActivity extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance("https://practicaps-d596b-default-rtdb.europe-west1.firebasedatabase.app/");
         databaseReference = database.getReference();
-        DatabaseReference usuarioMensajeRef = databaseReference.child("usuarios").child(mAuth.
-                getCurrentUser().getUid()).child("calendario").child(date);
+        usuarioMensajeRef = databaseReference.child("usuarios").child(mAuth.
+                getCurrentUser().getUid()).child("calendario");
 
-        adaptadorEventos = new AdaptadorEventos(getApplicationContext());
-        linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        adaptadorEventos = new AdaptadorEventos(this);
+        linearLayoutManager = new LinearLayoutManager(this);
 
         adaptadorEventos.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
@@ -77,11 +79,20 @@ public class EventosActivity extends AppCompatActivity {
             }
         });
 
-        databaseReference.addChildEventListener(new ChildEventListener() {
+        usuarioMensajeRef.child(date).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Informacion m = dataSnapshot.getValue(Informacion.class);
-                adaptadorEventos.addEvento(m);
+                System.out.println(dataSnapshot.getValue().toString());
+                Informacion i = dataSnapshot.getValue(Informacion.class);
+                i.setFecha(date);
+                String eventoArray = dataSnapshot.getValue().toString();
+                String[] arrOfStr = eventoArray.split(",");
+                evento = arrOfStr[0].substring(8);
+                i.setInfo(evento);
+                System.out.println(i.getInfo());
+                adaptadorEventos.addEvento(i);
+                adaptadorEventos.notifyDataSetChanged();
+                System.out.println(i);
             }
 
             @Override

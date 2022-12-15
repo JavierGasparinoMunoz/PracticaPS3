@@ -82,7 +82,8 @@ public class DialogoCalendar extends DialogFragment {
         botonInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                informacion = new Informacion(editText.getText().toString(),date,hora,mins);
+                informacion = new Informacion(editText.getText().toString(),hora,mins);
+                informacion.setFecha(date);
                 System.out.println(informacion);
                 guardarDataBase();
                 dismiss();
@@ -116,7 +117,8 @@ public class DialogoCalendar extends DialogFragment {
         String mensajePushID = usuarioMensajeRef.getKey();
         String calEventRef = "usuarios/" + mAuth.getCurrentUser().getUid() + "/calendario/" + date +  "/" + mensajePushID;
         Map eventoTxt = new HashMap();
-        eventoTxt.put("hora", hora + ":" + mins);
+        eventoTxt.put("hora", hora);
+        eventoTxt.put("min",mins);
         eventoTxt.put("evento", informacion.getInfo());
 
         Map calendarAdder = new HashMap();

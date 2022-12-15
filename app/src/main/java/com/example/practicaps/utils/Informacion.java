@@ -8,6 +8,8 @@ public class Informacion implements Serializable {
     String fecha;
     int hora,min;
 
+    public Informacion() {
+    }
 
     public Informacion(String info, int hora, int min) {
         this.info = info;
@@ -15,16 +17,19 @@ public class Informacion implements Serializable {
         this.min = min;
     }
 
-    public Informacion(String info, String fecha, int hora, int min) {
+    /*public Informacion(String info, String fecha, int hora, int min) {
         this.info = info;
         this.fecha = fecha;
         this.hora = hora;
         this.min = min;
+    }*/
+
+
+    public Informacion(String date) {
+        this.fecha = date;
     }
 
-    public Informacion(String info) {
-        this.info = info;
-    }
+
 
     public String getInfo() {
         return info;
@@ -37,8 +42,7 @@ public class Informacion implements Serializable {
     @Override
     public String toString() {
         return "Informacion{" +
-                "info='" + info + '\'' +
-                ", fecha='" + fecha + '\'' +
+                ", info='" + info + '\'' +
                 ", hora=" + hora +
                 ", min=" + min +
                 '}';

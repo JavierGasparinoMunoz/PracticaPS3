@@ -16,13 +16,16 @@ import com.example.practicaps.dialogos.DialogoCalendar;
 import com.example.practicaps.EventosActivity;
 import com.example.practicaps.R;
 import com.example.practicaps.utils.Informacion;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class CalendarFragment  extends Fragment implements View.OnClickListener {
     // Se instancian las variables
     CalendarView calendarView;
     Button buttonEventos;
 
-    String  date;
+    SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+    String date = df.format(new Date());
 
     public CalendarFragment() {
     }
