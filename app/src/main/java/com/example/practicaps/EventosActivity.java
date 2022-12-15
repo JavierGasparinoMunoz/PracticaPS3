@@ -54,21 +54,6 @@ public class EventosActivity extends AppCompatActivity {
     }
 
     private void acciones() {
-        recyclerEventos.setLayoutManager(linearLayoutManager);
-        recyclerEventos.setAdapter(adaptadorEventos);
-    }
-
-    private void instancias() {
-        recyclerEventos = findViewById(R.id.rv_eventos);
-
-        database = FirebaseDatabase.getInstance("https://practicaps-d596b-default-rtdb.europe-west1.firebasedatabase.app/");
-        databaseReference = database.getReference();
-        DatabaseReference usuarioMensajeRef = databaseReference.child("usuarios").child(mAuth.
-                getCurrentUser().getUid()).child("calendario").child(date);
-
-        adaptadorEventos = new AdaptadorEventos(getApplicationContext());
-        linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-
         adaptadorEventos.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {
@@ -104,6 +89,20 @@ public class EventosActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void instancias() {
+        recyclerEventos = findViewById(R.id.rv_eventos);
+
+        database = FirebaseDatabase.getInstance("https://practicaps-d596b-default-rtdb.europe-west1.firebasedatabase.app/");
+        databaseReference = database.getReference();
+        DatabaseReference usuarioMensajeRef = databaseReference.child("usuarios").child(mAuth.
+                getCurrentUser().getUid()).child("calendario").child(date);
+
+        adaptadorEventos = new AdaptadorEventos(getApplicationContext());
+        linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerEventos.setLayoutManager(linearLayoutManager);
+        recyclerEventos.setAdapter(adaptadorEventos);
     }
 
     private void setScrollBar(){
