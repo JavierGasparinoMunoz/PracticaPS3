@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "564502663543",
+    "project_id": "practicaps-d596b",
+    "storage_bucket": "practicaps-d596b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:564502663543:android:1fcedc4326e8580dc6d172",
+        "android_client_info": {
+          "package_name": "com.example.practicaps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "564502663543-5boupesujt8kq4gh8uga4d4qf1sqd4al.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2fZ_00UKzXwBTv2QzIlj5QPMmN-hCRtM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "564502663543-5boupesujt8kq4gh8uga4d4qf1sqd4al.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
