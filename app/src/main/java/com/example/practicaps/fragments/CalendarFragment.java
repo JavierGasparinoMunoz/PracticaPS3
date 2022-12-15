@@ -50,6 +50,7 @@ public class CalendarFragment  extends Fragment implements View.OnClickListener 
     }
 
     private void acciones() {
+
         buttonEventos.setOnClickListener(this);
     }
 
@@ -76,8 +77,9 @@ public class CalendarFragment  extends Fragment implements View.OnClickListener 
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.button_eventos:
-                Intent i = new Intent(getContext(), EventosActivity.class);
-                startActivity(i);
+                Intent intent = new Intent(getContext(), EventosActivity.class);
+                intent.putExtra("date", date);
+                startActivity(intent);
                 break;
         }
     }
