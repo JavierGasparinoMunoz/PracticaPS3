@@ -75,7 +75,7 @@ public class CalendarFragment  extends Fragment implements View.OnClickListener 
             }
         });
     }
-
+    //funcion donde se va cogiendo los eventos del array y los va mostrando por pantalla.
     @Override
     public void onClick(View view) {
         switch (view.getId()){

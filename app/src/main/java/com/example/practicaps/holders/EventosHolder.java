@@ -1,6 +1,7 @@
 package com.example.practicaps.holders;
 
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,12 +13,14 @@ import com.example.practicaps.R;
 public class EventosHolder extends RecyclerView.ViewHolder {
 
     private TextView nombre,hora,fecha;
+    private ImageButton buttonBorrarEvento;
 
     public EventosHolder(@NonNull View itemView) {
         super(itemView);
         nombre = itemView.findViewById(R.id.evento);
         hora = itemView.findViewById(R.id.hora);
         fecha = itemView.findViewById(R.id.fecha);
+        buttonBorrarEvento = itemView.findViewById(R.id.borrarEvento);
     }
 
     public TextView getNombre() {
@@ -42,5 +45,13 @@ public class EventosHolder extends RecyclerView.ViewHolder {
 
     public void setFecha(TextView fecha) {
         this.fecha = fecha;
+    }
+
+    public ImageButton getButtonBorrarEvento() {
+        return buttonBorrarEvento;
+    }
+
+    public void setButtonBorrarEvento(ImageButton buttonBorrarEvento) {
+        this.buttonBorrarEvento = buttonBorrarEvento;
     }
 }
