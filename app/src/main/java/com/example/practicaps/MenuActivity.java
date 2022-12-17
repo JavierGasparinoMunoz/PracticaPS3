@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.practicaps.fragments.CalendarFragment;
+import com.example.practicaps.fragments.ForoFragment;
 import com.example.practicaps.utils.Usuarios;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -95,6 +96,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Usuarios usuarios = dataSnapshot.getValue(Usuarios.class);
+                System.out.println(currentUser);
                 currentUser = usuarios.getNombre();
                 currentEmail = usuarios.getEmail();
 
@@ -134,20 +136,15 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
         if (id == R.id.nav_calendar){
             cargarFragment(new CalendarFragment());
-        } else if (id == R.id.nav_cerrarSesion) {
+        } else if (id == R.id.nav_chat) {
+            cargarFragment(ForoFragment.newInstance(FirebaseAuth.getInstance().getCurrentUser().getUid()));
+        }else if (id == R.id.nav_cerrarSesion) {
             returnLogin();
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return false;
     }
-
-    //Metodo para cargar el fragment
-   /* private void cargarFragment(Fragment fragment) {
-        FragmentManager manager = getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.contenedor_fragments, fragment).commit();
-    }
-    */
 
     // Cuando se llama a este metodo se regresa a MainActivity
     private void returnLogin() {
