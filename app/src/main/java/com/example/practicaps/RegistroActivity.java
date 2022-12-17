@@ -107,6 +107,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                                         FirebaseUser currentUser = mAuth.getCurrentUser();;
                                         String uid = currentUser.getUid();
                                         comprobarUsuario(uid);
+                                        System.out.println(currentUser);
 
                                         AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
                                         builder.setTitle("Dialogo de registro");
